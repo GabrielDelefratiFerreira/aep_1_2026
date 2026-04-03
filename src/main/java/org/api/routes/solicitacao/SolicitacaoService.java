@@ -19,7 +19,8 @@ public class SolicitacaoService {
     }
 
     public void update(Long id, SolicitacaoModel solicitacao) {
-
+        solicitacao.setId(id);
+        this.repositorySolicitacao.update(solicitacao);
     }
 
     public void revoke(Long id) {

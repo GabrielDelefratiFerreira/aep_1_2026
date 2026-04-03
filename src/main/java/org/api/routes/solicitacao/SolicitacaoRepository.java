@@ -13,6 +13,15 @@ public class SolicitacaoRepository {
         banco.add(solicitacao);
     }
 
+    public void update(SolicitacaoModel solicitacao) {
+        for (int i = 0; i < banco.size(); i++) {
+            if (banco.get(i).getId().equals(solicitacao.getId())) {
+                banco.set(i, solicitacao);
+                return;
+            }
+        }
+    }
+
     public List<SolicitacaoModel> findAll() {
         return this.banco.stream().toList();
     }
