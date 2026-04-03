@@ -1,10 +1,10 @@
-package org.example.Model;
+package org.api.routes.categoria;
 
-public class categoria {
+public class CategoriaModel {
     private Long id;
     private String nome;
 
-    public categoria(Long id, String nome) {
+    public CategoriaModel(Long id, String nome) {
         this.id = id;
         this.nome = nome;
     }

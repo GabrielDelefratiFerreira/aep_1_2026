@@ -1,4 +1,4 @@
-package org.example.Enum;
+package org.api.core.Enum;
 
 public enum EnumStatus {
     ABERTO,

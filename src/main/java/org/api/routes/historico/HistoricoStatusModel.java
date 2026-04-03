@@ -1,16 +1,15 @@
-package org.example.Model;
-
-import org.example.Enum.EnumStatus;
+package org.api.routes.historico;
 
 import java.time.LocalDateTime;
+import org.api.core.Enum.EnumStatus;
 
-public class historicoStatus {
+public class HistoricoStatusModel {
     private Long id;
     private LocalDateTime data;
     private String comentario;
     private EnumStatus status;
 
-    public historicoStatus(Long id, LocalDateTime data, String comentario, EnumStatus status ) {
+    public HistoricoStatusModel(Long id, LocalDateTime data, String comentario, EnumStatus status) {
         this.id = id;
         this.data = data;
         this.comentario = comentario;
