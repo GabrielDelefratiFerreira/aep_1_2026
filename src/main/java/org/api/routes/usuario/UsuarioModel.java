@@ -1,14 +1,16 @@
-package org.example.Model;
+package org.api.routes.usuario;
 
-public class usuario {
+import org.api.core.JsonMapper;
+
+public class UsuarioModel extends JsonMapper {
     private Long id;
     private String nome;
-    private String emaio;
+    private String email;
 
-    public usuario(Long id, String nome, String emaio) {
+    public UsuarioModel(Long id, String nome, String email) {
         this.id = id;
         this.nome = nome;
-        this.emaio = emaio;
+        this.email = email;
     }
 
     public Long getId() {
@@ -27,11 +29,11 @@ public class usuario {
         this.nome = nome;
     }
 
-    public String getEmaio() {
-        return emaio;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmaio(String emaio) {
-        this.emaio = emaio;
+    public void setemail(String email) {
+        this.email = email;
     }
 }

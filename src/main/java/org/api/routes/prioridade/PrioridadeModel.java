@@ -1,10 +1,10 @@
-package org.example.Model;
+package org.api.routes.prioridade;
 
-public class prioridade {
+public class PrioridadeModel {
     private Long id;
     private String nivel;
 
-    public prioridade(Long id, String nivel) {
+    public PrioridadeModel(Long id, String nivel) {
         this.id = id;
         this.nivel = nivel;
     }
