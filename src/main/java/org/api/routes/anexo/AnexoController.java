@@ -9,7 +9,6 @@ import org.api.core.ApiServer;
 import org.api.core.JsonMapper;
 import org.api.core.Enum.EnumAccessModifier;
 import org.api.routes.solicitacao.SolicitacaoService;
-import org.api.routes.usuario.UsuarioService;
 import com.sun.net.httpserver.HttpExchange;
 
 public class AnexoController extends ApiController {
