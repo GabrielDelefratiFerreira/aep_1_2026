@@ -6,13 +6,22 @@
 package org.api;
 
 import org.api.core.ApiServer;
+import org.api.routes.auth.AuthController;
 import org.api.routes.solicitacao.SolicitacaoController;
+import org.api.routes.token.TokenService;
+import org.api.routes.usuario.UsuarioController;
+import org.api.routes.usuario.UsuarioService;
 
 public class Main {
     public static void main(String[] args) throws Exception {
         ApiServer server = new ApiServer();
+        TokenService tokenService = new TokenService();
+        UsuarioService userService = new UsuarioService();
+
         new SolicitacaoController(server);
-        new UsuarioController(server);
-        server.run();
+        new UsuarioController(server, userService);
+        new AuthController(server, tokenService, userService);
+
+        server.run(tokenService);
     }
 }

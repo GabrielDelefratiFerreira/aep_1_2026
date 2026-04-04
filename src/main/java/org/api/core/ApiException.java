@@ -26,6 +26,10 @@ public class ApiException extends IOException {
     return new ApiException(message, 400);
   }
 
+  public static ApiException unauthorized(String message){
+    return new ApiException(message, 401);
+  }
+
   public static ApiException internal(String message) {
     return new ApiException(message, 500);
   }

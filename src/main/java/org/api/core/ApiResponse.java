@@ -6,7 +6,8 @@ public class ApiResponse {
 
   private ApiResponse(String message, int status) {
     this.status = status;
-    this.message = "[LOG]: " + message;
+    this.message = message;
+    System.out.println("[LOG]: " + message);
   }
 
   public String getMessage() {

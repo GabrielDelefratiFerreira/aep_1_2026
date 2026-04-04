@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Scanner;
 import org.api.core.ApiServer.RouteHandler;
+import org.api.core.Enum.EnumAccessModifier;
 import org.api.core.Enum.EnumMethod;
 import com.sun.net.httpserver.HttpExchange;
 
@@ -17,36 +18,36 @@ public class ApiController {
     this.server = server;
   }
 
-  public void post(RouteHandler handler, String route) {
-    server.attachRoute(handler, EnumMethod.POST, url(route));
+  public void post(RouteHandler handler, String route, EnumAccessModifier mod) {
+    server.attachRoute(handler, EnumMethod.POST, url(route), mod);
   }
 
-  public void post(RouteHandler handler) {
-    server.attachRoute(handler, EnumMethod.POST, url(""));
+  public void post(RouteHandler handler, EnumAccessModifier mod) {
+    server.attachRoute(handler, EnumMethod.POST, url(""), mod);
   }
 
-  public void get(RouteHandler handler, String route) {
-    server.attachRoute(handler, EnumMethod.GET, url(route));
+  public void get(RouteHandler handler, String route, EnumAccessModifier mod) {
+    server.attachRoute(handler, EnumMethod.GET, url(route),mod);
   }
 
-  public void get(RouteHandler handler) {
-    server.attachRoute(handler, EnumMethod.GET, url(""));
+  public void get(RouteHandler handler, EnumAccessModifier mod) {
+    server.attachRoute(handler, EnumMethod.GET, url(""), mod);
   }
 
-  public void delete(RouteHandler handler, String route) {
-    server.attachRoute(handler, EnumMethod.DELETE, url(route));
+  public void delete(RouteHandler handler, String route, EnumAccessModifier mod) {
+    server.attachRoute(handler, EnumMethod.DELETE, url(route), mod);
   }
 
-  public void delete(RouteHandler handler) {
-    server.attachRoute(handler, EnumMethod.DELETE, url(""));
+  public void delete(RouteHandler handler, EnumAccessModifier mod) {
+    server.attachRoute(handler, EnumMethod.DELETE, url(""), mod);
   }
 
-  public void put(RouteHandler handler, String route) {
-    server.attachRoute(handler, EnumMethod.PUT, url(route));
+  public void put(RouteHandler handler, String route, EnumAccessModifier mod) {
+    server.attachRoute(handler, EnumMethod.PUT, url(route), mod);
   }
 
-  public void put(RouteHandler handler) {
-    server.attachRoute(handler, EnumMethod.PUT, url(""));
+  public void put(RouteHandler handler, EnumAccessModifier mod) {
+    server.attachRoute(handler, EnumMethod.PUT, url(""), mod);
   }
 
   private String url(String url) {

@@ -2,6 +2,7 @@ package org.api.routes.solicitacao;
 
 import org.api.core.ApiServer;
 import org.api.core.JsonMapper;
+import org.api.core.Enum.EnumAccessModifier;
 import java.util.ArrayList;
 import java.util.List;
 import org.api.core.ApiController;
@@ -15,11 +16,11 @@ public class SolicitacaoController extends ApiController {
   public SolicitacaoController(ApiServer server) throws ApiException {
     super("solicitacao", server);
     this.service = new SolicitacaoService();
-    this.delete(this::revoke);
-    this.put(this::update);
-    this.get(this::byId, "/by-id/:id");
-    this.get(this::findAll);
-    this.post(this::create);
+    this.delete(this::revoke, EnumAccessModifier.PRIVATE);
+    this.put(this::update, "/:id", EnumAccessModifier.PRIVATE);
+    this.get(this::byId, "/by-id/:id", EnumAccessModifier.PUBLIC);
+    this.get(this::findAll, EnumAccessModifier.PUBLIC);
+    this.post(this::create, EnumAccessModifier.PRIVATE);
   }
 
   public ApiResponse create(HttpExchange req) throws ApiException {

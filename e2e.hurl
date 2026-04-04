@@ -3,6 +3,36 @@ Content-Type: application/json
 [Options]
 variable: base_url=http://127.0.0.1:8080
 variable: module=solicitacao
+variable: mail=mail@mail.com
+variable: password=pass123
+HTTP 401
+
+
+POST {{base_url}}/{{module}}/login
+Content-Type: application/json
+[Options]
+variable: module=auth
+{
+    "email": "{{mail}}",
+    "password": "{{password}}"
+}
+HTTP 404
+
+
+POST {{base_url}}/{{module}}/signup
+{
+    "email": "{{mail}}",
+    "password": "{{password}}"
+}
+HTTP 200
+[Captures]
+token: jsonpath "$.bearer"
+
+
+POST {{base_url}}/{{module}}
+Authorization: Bearer {{token}}
+[Options]
+variable: module=solicitacao
 {
     "descricao": "descricao da solicitacao",
     "local": "local da solicitacao",
@@ -17,8 +47,8 @@ HTTP 200
 # testa a sequencia do id
 POST {{base_url}}/{{module}}
 Content-Type: application/json
+Authorization: Bearer {{token}}
 [Options]
-variable: base_url=http://127.0.0.1:8080
 variable: module=solicitacao
 {
     "descricao": "descricao da solicitacao",
@@ -40,4 +70,15 @@ HTTP 200
 GET {{base_url}}/{{module}}/by-id/2
 Content-Type: application/json
 HTTP 200
+
+PUT {{base_url}}/{{module}}/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+[Options]
+{
+    "id": 1,
+    "nome": "nome123",
+    "email": "email@gmail.com"
+}
+HTTP 204
 
