@@ -62,7 +62,6 @@ variable: module=solicitacao
 HTTP 200
 
 
-
 GET {{base_url}}/{{module}}/by-id/1
 Content-Type: application/json
 HTTP 200
@@ -74,7 +73,33 @@ HTTP 200
 PUT {{base_url}}/{{module}}/1
 Content-Type: application/json
 Authorization: Bearer {{token}}
+{
+    "descricao": "descricao da solicitacao",
+    "local": "local da solicitacao",
+    "prazo": "2026-04-02T16:42:24",
+    "id_usuario": 1,
+    "id_categoria": 1,
+    "prioridade": "High",
+    "status": "TRIAGEM"
+}
+HTTP 204
+
+
+GET {{base_url}}/{{module}}/historico/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+HTTP 200
+[Asserts]
+jsonpath "$" count == 2
+jsonpath "$[0].status" == "ABERTO"
+jsonpath "$[1].status" == "TRIAGEM"
+
+
+PUT {{base_url}}/{{module}}/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
 [Options]
+variable: module=usuario
 {
     "id": 1,
     "nome": "nome123",

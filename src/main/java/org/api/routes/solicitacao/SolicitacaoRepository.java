@@ -7,10 +7,11 @@ public class SolicitacaoRepository {
     private List<SolicitacaoModel> banco = new ArrayList<>();
     private Long idIndex = 0L;
 
-    public void save(SolicitacaoModel solicitacao) {
+    public SolicitacaoModel save(SolicitacaoModel solicitacao) {
         if (solicitacao.getId() == null)
             solicitacao.setId(getNewId());
         banco.add(solicitacao);
+        return solicitacao;
     }
 
     public void update(SolicitacaoModel solicitacao) {

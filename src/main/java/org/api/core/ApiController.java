@@ -77,8 +77,8 @@ public class ApiController {
 
       try (Scanner scanner = new Scanner(rawBody, StandardCharsets.UTF_8.name())) {
         json = scanner.useDelimiter("\\A").hasNext() ? scanner.next() : "";
-        T solicitacao = JsonMapper.fromJson(json, entityType);
-        return solicitacao;
+        T entity = JsonMapper.fromJson(json, entityType);
+        return entity;
       } catch (Exception e) {
         throw ApiException.badRequest("No valid body was provided");
       }

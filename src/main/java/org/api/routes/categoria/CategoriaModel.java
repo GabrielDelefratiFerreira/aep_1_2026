@@ -1,6 +1,8 @@
 package org.api.routes.categoria;
 
-public class CategoriaModel {
+import org.api.core.JsonMapper;
+
+public class CategoriaModel extends JsonMapper {
     private Long id;
     private String nome;
 
