@@ -10,16 +10,19 @@ public class UsuarioService {
         this.repositoryUsuario = new UsuarioRepository();
     }
 
-    public void create(UsuarioModel usuario) {
-        repositoryUsuario.save(usuario);
+    public UsuarioModel create(UsuarioModel usuario) throws ApiException {
+        if (usuario.getId() != null)
+            throw ApiException.unauthorized("Do not send id to create user");
+        return repositoryUsuario.save(usuario);
     }
 
     public List<UsuarioModel> findAll() {
         return repositoryUsuario.findAll();
     }
 
-    public void update(Long id, UsuarioModel usuario) {
-        usuario.setId(id);
+    public void update(Long id, UsuarioModel usuario) throws ApiException {
+        if (id != usuario.getId())
+            throw ApiException.unauthorized("Could not update data from another user");
         this.repositoryUsuario.update(usuario);
     }
 
@@ -28,9 +31,19 @@ public class UsuarioService {
     }
 
     public UsuarioModel byId(Long id) throws ApiException {
-        List<UsuarioModel> solicitacoes = this.repositoryUsuario.findAll();
-        for (UsuarioModel item : solicitacoes) {
-            if (item.getId().equals(id)) return item;
+        List<UsuarioModel> usuarios = this.repositoryUsuario.findAll();
+        for (UsuarioModel item : usuarios) {
+            if (item.getId().equals(id))
+                return item;
+        }
+        throw ApiException.notFound("Solicitação não encontrada!");
+    }
+
+    public UsuarioModel byEmail(String email) throws ApiException {
+        List<UsuarioModel> usuarios = this.repositoryUsuario.findAll();
+        for (UsuarioModel item : usuarios) {
+            if (item.getEmail().equals(email))
+                return item;
         }
         throw ApiException.notFound("Solicitação não encontrada!");
     }

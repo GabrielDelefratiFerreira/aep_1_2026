@@ -1,41 +1,49 @@
-package org.api.routes.solicitacao;
+package org.api.routes.anexo;
 
-import org.api.core.ApiServer;
-import org.api.core.JsonMapper;
-import org.api.core.Enum.EnumAccessModifier;
-import org.api.routes.historico.HistoricoStatusModel;
 import java.util.ArrayList;
 import java.util.List;
 import org.api.core.ApiController;
 import org.api.core.ApiException;
 import org.api.core.ApiResponse;
+import org.api.core.ApiServer;
+import org.api.core.JsonMapper;
+import org.api.core.Enum.EnumAccessModifier;
+import org.api.routes.solicitacao.SolicitacaoService;
+import org.api.routes.usuario.UsuarioService;
 import com.sun.net.httpserver.HttpExchange;
 
-public class SolicitacaoController extends ApiController {
-  SolicitacaoService service;
+public class AnexoController extends ApiController {
+  private AnexoService service = new AnexoService();
+  private SolicitacaoService solicitacaoService;
 
-  public SolicitacaoController(ApiServer server, SolicitacaoService service) throws ApiException {
-    super("solicitacao", server);
-    this.service = service;
+  public AnexoController(
+      ApiServer server,
+      SolicitacaoService solicitacaoService)
+      throws ApiException {
+    super("anexo", server);
+    this.solicitacaoService = solicitacaoService;
+    this.service = new AnexoService();
     this.delete(this::revoke, EnumAccessModifier.PRIVATE);
     this.put(this::update, "/:id", EnumAccessModifier.PRIVATE);
     this.get(this::byId, "/by-id/:id", EnumAccessModifier.PUBLIC);
     this.get(this::findAll, EnumAccessModifier.PUBLIC);
-    this.get(this::getHistory, "historico/:id", EnumAccessModifier.PUBLIC);
     this.post(this::create, EnumAccessModifier.PRIVATE);
   }
 
   public ApiResponse create(HttpExchange req) throws ApiException {
-    SolicitacaoModel solicitacao = this.extractBody(req, SolicitacaoModel.class);
-    this.service.create(solicitacao);
+    AnexoModel anexo = this.extractBody(req, AnexoModel.class);
+    if ((this.solicitacaoService.byId(anexo.getSolicitacaoId())) == null)
+      throw ApiException.badRequest("Could not found solicitacao by id");
+
+    this.service.create(anexo);
     return ApiResponse.ok("Succsessfully created!");
   }
 
   public ApiResponse update(HttpExchange req) throws ApiException {
     Long id = this.extractId(req);
-    SolicitacaoModel solicitacao = this.extractBody(req, SolicitacaoModel.class);
-    solicitacao.setId(id);
-    this.service.update(id, solicitacao);
+    AnexoModel anexo = this.extractBody(req, AnexoModel.class);
+    anexo.setId(id);
+    this.service.update(id, anexo);
     return ApiResponse.noContent("Succsessfully updated!");
   }
 
@@ -52,18 +60,9 @@ public class SolicitacaoController extends ApiController {
 
   public ApiResponse findAll(HttpExchange req) throws ApiException {
     List<String> solicitacoes = new ArrayList<>();
-    for (SolicitacaoModel s : this.service.findAll()) {
+    for (AnexoModel s : this.service.findAll()) {
       solicitacoes.add(JsonMapper.toJson(s));
     }
     return ApiResponse.ok(solicitacoes.toString());
-  }
-
-  public ApiResponse getHistory(HttpExchange req) throws ApiException {
-    Long id = this.extractId(req);
-    List<String> histories = new ArrayList<>();
-    for (HistoricoStatusModel s : this.service.getHistory(id)) {
-      histories.add(JsonMapper.toJson(s));
-    }
-    return ApiResponse.ok(histories.toString());
   }
 }

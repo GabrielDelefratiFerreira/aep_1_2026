@@ -7,10 +7,11 @@ public class UsuarioRepository {
   private List<UsuarioModel> banco = new ArrayList<>();
   private Long idIndex = 0L;
 
-  public void save(UsuarioModel usuario) {
+  public UsuarioModel save(UsuarioModel usuario) {
     if (usuario.getId() == null)
       usuario.setId(getNewId());
     banco.add(usuario);
+    return usuario;
   }
 
   public void update(UsuarioModel usuario) {
@@ -27,11 +28,10 @@ public class UsuarioRepository {
   }
 
   public void revoke(Long id) {
-    banco.removeIf((s) -> s.getId() == id);
+    banco.removeIf((s) -> s.getId().equals(id));
   }
 
   private Long getNewId() {
-    this.idIndex++;
-    return this.idIndex;
+    return ++this.idIndex;
   }
 }

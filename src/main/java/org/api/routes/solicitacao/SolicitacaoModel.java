@@ -3,32 +3,20 @@ package org.api.routes.solicitacao;
 import org.api.core.JsonMapper;
 import org.api.core.Enum.EnumStatus;
 import org.api.core.Enum.EnumPrioridade;
-import org.api.routes.historico.HistoricoStatusModel;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class SolicitacaoModel extends JsonMapper {
-
     private Long id;
     private String descricao;
     private String local;
     private LocalDateTime dataSolicitacao;
     private LocalDateTime prazo;
-
-    @JsonProperty("id_usuario")
     private Long id_usuario;
-
-    @JsonProperty("id_categoria")
     private Long id_categoria;
-
     private EnumPrioridade prioridade;
     private EnumStatus status;
-    private List<HistoricoStatusModel> historico;
 
+    public SolicitacaoModel() {}
     public SolicitacaoModel(
             Long id,
             String descricao,
@@ -38,7 +26,6 @@ public class SolicitacaoModel extends JsonMapper {
             Long id_categoria,
             EnumPrioridade prioridade,
             EnumStatus status,
-            List<HistoricoStatusModel> historico,
             Long id_usuario) {
         this.id = id;
         this.descricao = descricao;
@@ -49,9 +36,7 @@ public class SolicitacaoModel extends JsonMapper {
         this.id_categoria = id_categoria;
         this.prioridade = prioridade;
         this.status = status;
-        this.historico = historico;
     }
-
     public SolicitacaoModel(
             Long newId,
             String descricao,
@@ -70,10 +55,8 @@ public class SolicitacaoModel extends JsonMapper {
         this.id_categoria = id_categoria;
         this.prioridade = prioridade;
         this.status = status;
-        this.historico = new ArrayList<>();
     }
 
-    public SolicitacaoModel() {}
 
     public void setId(Long id) { this.id = id; }
     public void setDescricao(String descricao) { this.descricao = descricao; }
@@ -84,7 +67,6 @@ public class SolicitacaoModel extends JsonMapper {
     public void setId_categoria(Long id_categoria) { this.id_categoria = id_categoria; }
     public void setPrioridade(EnumPrioridade prioridade) { this.prioridade = prioridade; }
     public void setStatus(EnumStatus status) { this.status = status; }
-    public void setHistorico(List<HistoricoStatusModel> historico) { this.historico = historico; }
 
     public Long getId() { return this.id; }
     public String getDescricao() { return this.descricao; }
@@ -95,5 +77,4 @@ public class SolicitacaoModel extends JsonMapper {
     public Long getCategoryId() { return this.id_categoria; }
     public EnumPrioridade getPrioridade() { return this.prioridade; }
     public EnumStatus getStatus() { return this.status; }
-    public List<HistoricoStatusModel> getHistorico() { return this.historico; }
 }

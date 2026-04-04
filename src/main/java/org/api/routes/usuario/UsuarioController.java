@@ -2,6 +2,7 @@ package org.api.routes.usuario;
 
 import org.api.core.ApiServer;
 import org.api.core.JsonMapper;
+import org.api.core.Enum.EnumAccessModifier;
 import org.api.core.ApiController;
 import org.api.core.ApiException;
 import org.api.core.ApiResponse;
@@ -12,20 +13,13 @@ import com.sun.net.httpserver.HttpExchange;
 public class UsuarioController extends ApiController {
   UsuarioService service;
 
-  public UsuarioController(ApiServer server) throws ApiException {
+  public UsuarioController(ApiServer server, UsuarioService service) throws ApiException {
     super("usuario", server);
-    this.service = new UsuarioService();
-    this.delete(this::revoke);
-    this.put(this::update);
-    this.get(this::byId, "/by-id/:id");
-    this.get(this::findAll);
-    this.post(this::create);
-  }
-
-  public ApiResponse create(HttpExchange req) throws ApiException {
-    UsuarioModel usuario = this.extractBody(req, UsuarioModel.class);
-    this.service.create(usuario);
-    return ApiResponse.ok("Succsessfully created!");
+    this.service = service;
+    this.delete(this::revoke, EnumAccessModifier.PRIVATE);
+    this.put(this::update, "/:id", EnumAccessModifier.PRIVATE);
+    this.get(this::byId, "/by-id/:id", EnumAccessModifier.PRIVATE);
+    this.get(this::findAll, EnumAccessModifier.PRIVATE);
   }
 
   public ApiResponse update(HttpExchange req) throws ApiException {

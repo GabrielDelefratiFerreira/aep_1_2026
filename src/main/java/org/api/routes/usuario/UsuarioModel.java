@@ -6,11 +6,16 @@ public class UsuarioModel extends JsonMapper {
     private Long id;
     private String nome;
     private String email;
+    private String password;
 
-    public UsuarioModel(Long id, String nome, String email) {
+    public UsuarioModel() {
+    }
+
+    public UsuarioModel(Long id, String nome, String email, String password) {
         this.id = id;
         this.nome = nome;
         this.email = email;
+        this.password = password;
     }
 
     public Long getId() {
@@ -35,5 +40,9 @@ public class UsuarioModel extends JsonMapper {
 
     public void setemail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return this.password;
     }
 }
